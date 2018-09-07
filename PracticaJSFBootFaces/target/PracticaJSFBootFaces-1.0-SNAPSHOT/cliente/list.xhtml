@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Lista De Clientes</title>        
+    </h:head>
+    <h:body>
+        <ui:insert>
+            <ui:include src="../templates/header.xhtml"/>
+        </ui:insert>
+        <h2>Clientes</h2>   
+        <h:form>
+            <b:dataTable value="#{clienteCtrl.list}"
+                         var="selected">
+                <b:dataTableColumn value="#{selected.id_cliente}" order="desc" />
+                <b:dataTableColumn label="name_cat">
+                    <b:inputText value="#{selected.nombres_razon_social}"  rendered="#{clienteCtrl.selected.nombres_razon_social}"  />
+                    <h:outputText value="#{selected.nombres_razon_social}" rendered="#{not clienteCtrl.selected.nombres_razon_social}" />
+                </b:dataTableColumn>
+                <b:dataTableColumn value="#{selected.telefono}" />
+                <b:dataTableColumn value="#{selected.correo}" />
+                <b:dataTableColumn value="#{selected.dni_ruc}" />
+                
+                <b:dataTableColumn label="Opciones">
+                    <b:panelGrid columns="2" size="xs"> 
+                        <b:commandButton value="Edit" ajax="true" update="@form"
+                                         onclick="ajax:clienteCtrl.updateCliente(selected)" look="success">
+                        </b:commandButton>
+                        <b:commandButton value="Delete" action="#{clienteCtrl.deleteCliente(selected.id_cliente)}" look="danger">
+                        </b:commandButton>
+                    </b:panelGrid>
+                </b:dataTableColumn>                 
+            </b:dataTable> 
+            <!--<b:commandButton value="Create" action="/categoria/create" look="success"/>-->
+            <b:button onclick="$('.createModalClass').modal('show')" value="Create" look="success"/>
+
+        </h:form>
+
+        <b:modal title="Create categoría" styleClass="createModalClass"
+                 closable="false"
+                 closeOnEscape="true">
+            <b:form>
+                <ui:insert name="create">
+                    <ui:include src="/cliente/create.xhtml"/>
+                </ui:insert>
+                <b:row>
+                    <b:column>
+                        <b:button largeScreen="half"  value="Cancel"
+                                  dismiss="modal" look="danger" onclick="return false;"/>
+                        <b:commandButton oncomplete="$('.createModalClass').modal('hide')"                                     
+                                         value="Save" look="success" action="#{clienteCtrl.createCliente}"/>
+                    </b:column>
+                </b:row>
+                <b:fetchBeanInfos />
+                <b:messages />
+            </b:form>
+        </b:modal>        
+    </h:body>
+</html>
+

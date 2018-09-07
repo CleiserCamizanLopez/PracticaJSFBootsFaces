@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Insertar cliente</title>        
+    </h:head>
+    <h:body>         
+        <b:panelGrid columns="1" size="xs">                    
+            <b:inputText id="nombres_razon_social" value="#{clienteCtrl.selected.nombres_razon_social}"
+                     label="Nombre Razon Social" />
+            <b:inputText id="telefono" value="#{clienteCtrl.selected.telefono}"
+                     label="Telefono" />
+        <b:inputText id="correo" value="#{clienteCtrl.selected.correo}"
+                     label="Correo" />
+        <b:inputText id="dni_ruc" value="#{clienteCtrl.selected.dni_ruc}"
+                     label="DNI o RUC" />
+       
+        </b:panelGrid>
+    </h:body>
+</html>
